@@ -1,0 +1,7 @@
+aiokafka
+celery[redis]
+sqlalchemy
+asyncpg
+pydantic
+psycopg2-binary
+python-dotenv
