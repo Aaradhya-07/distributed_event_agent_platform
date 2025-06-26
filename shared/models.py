@@ -5,7 +5,7 @@ class UserInteractionEvent(BaseModel):
     user_id: str
     event_type: str
     timestamp: str  # ISO format
-    metadata: Optional[Dict[str, Any]] = None
+    event_metadata: Optional[Dict[str, Any]] = None
 
 class ChemicalResearchEvent(BaseModel):
     molecule_id: str
@@ -24,7 +24,7 @@ class UserInteractionEventDB(Base):
     user_id = Column(String, index=True)
     event_type = Column(String)
     timestamp = Column(DateTime)
-    metadata = Column(JSON)
+    event_metadata = Column(JSON)
 
 class ChemicalResearchEventDB(Base):
     __tablename__ = "chemical_research_events"

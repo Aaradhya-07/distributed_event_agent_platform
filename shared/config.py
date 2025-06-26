@@ -7,6 +7,7 @@ class Settings(BaseSettings):
     postgres_url: str = "postgresql+asyncpg://user:password@localhost:5432/db"
     llm_api_url: str = "http://localhost:8001/llm"
     llm_api_key: str = "dummy-key"
+    celery_broker_url: str = "redis://localhost:6379/0"
 
     class Config:
         env_file = ".env"
