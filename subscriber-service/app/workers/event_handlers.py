@@ -10,6 +10,7 @@ from datetime import datetime
 settings = Settings()
 
 def make_celery_app(settings: Settings):
+    """Create and configure a Celery app instance with the given settings."""
     return Celery(
         'subscriber',
         broker=settings.celery_broker_url,
@@ -19,6 +20,10 @@ celery_app = make_celery_app(settings)
 
 @celery_app.task
 def process_user_event(event_data):
+    """Celery task to process and store a user interaction event in the database.
+    Args:
+        event_data: JSON string of the user interaction event.
+    """
     event = UserInteractionEvent.parse_raw(event_data)
     async def db_task():
         async with AsyncSessionLocal() as session:
@@ -34,6 +39,10 @@ def process_user_event(event_data):
 
 @celery_app.task
 def process_chemical_event(event_data):
+    """Celery task to process a chemical research event, enrich with LLM, and store in the database.
+    Args:
+        event_data: JSON string of the chemical research event.
+    """
     event = ChemicalResearchEvent.parse_raw(event_data)
     async def db_task():
         async with AsyncSessionLocal() as session:
